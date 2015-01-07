@@ -2,25 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Data-binding with Backbone</title>
+    <title>Introduction to Backbone</title>
     <script src="underscore.js"></script>
     <script src="backbone.js"></script>
     <script src="jquery-2.1.3.js"></script>
   </head>
   <body>
-    Name:<input type="text" id="textInput" />
-    Hello dear <span id="nameSpan"></span>...!
+  Name:<input type="text" id="textInput" />
+Hello dear <span id="nameSpan"></span>...!
     <script>
-        //Backbone MVC
         //Model
         var model=new Backbone.Model({ name : ' ' });
+
         //view
         model.on('change:name',function(){
-        $('#nameSpan').html(model.get('name'));
+          $('#nameSpan').html(model.get('name'));
         });
         //controller
         $('#textInput').on('keyup',function(){
-        model.set('name',$('#textInput').val());
+          model.set('name',$('#textInput').val());
         });
     </script>
   </body>
