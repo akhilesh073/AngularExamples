@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+	<style type="text/css">
+	table, table tr, table td, table tr th{
+		border: 1px solid #000;
+	}
+	</style>
+	<script >
+			//with json objects
+			
+		var countryApp=angular.module('countryApp',[]);
+
+		countryApp.controller('countryAppCtrl',function($scope,$http){
+			$scope.countries=[];
+			$http.get('countries.json').success(function(data){
+				$scope.countries=data;
+			});
+			//function for add county to the list
+			$scope.addCountry=function(){
+								var newData={'name': $scope.newCountry,'code' : $scope.newCode};
+								$scope.countries.push(newData);
+								$scope.newCountry='';
+								$scope.newCode='';
+				
+							};
+			//function for removeCountry
+			$scope.removeCountry=function(country){
+				//console.log(JSON.stringify(country));
+				var i =$scope.countries.indexOf(country);
+				$scope.countries.splice(i,1);
+				
+			};
+		});
+	</script>
+	<head>
+		<title>Country list</title>
+	</head>
+	<body ng-controller="countryAppCtrl">
+		<table class="countryTbl">
+			<tr>
+				<th>Country</th>
+				<th>Code</th>
+				<th>Action</th>
+			</tr>
+			<tbody ng-repeat="country in countries">
+				<td >{{country.name}}</td>
+				<td>{{country.code}}</td>
+				<td><a href="" ng-click="removeCountry(country)">remove</a></td>
+			</tbody>
+		</table>
+		<br>
+		<form ng-submit="addCountry()">
+			<div>
+				Name: <div><input type="text" ng-model="newCountry" /> </div><br>
+				Code:<div><input type="text" ng-model="newCode" /></div><br>
+				<div ><input type="submit" value="add" /></div>
+			</div>
+		</form>
+	</body>
+</html>
