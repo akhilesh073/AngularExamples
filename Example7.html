@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="angNameApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Angular Controller Ex</title>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+		
+		<script>
+		//Angular controller code with creating a module
+		//creating module specific to piece of code or a paritcular module
+		
+		var angNameApp=angular.module('angNameApp',[]);
+		angNameApp.controller('NameCtrl',function NameCtrl($scope){
+		$scope.firstName='';
+		$scope.lastName='';
+		
+			$scope.$watch('lastName',function(newValue,oldValue){
+				console.log("new value is"+newValue);
+			});
+
+			//propagating changes asynchromously with $apply and $watch
+			
+			setTimeout(function(){
+				$scope.lastName="smith";
+				$scope.$apply();
+			},5000);
+		});
+		
+		</script>
+	</head>
+	<body ng-controller="NameCtrl">
+		First Name: <input  ng-model="firstName" type="text" />
+		<br><br>
+		Last Name: <input  ng-model="lastName" type="text"/>
+		<br><br>
+		Hello {{firstName}} {{lastName}}
+	</body>
+</html>

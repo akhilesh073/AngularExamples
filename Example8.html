@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="fruitName">
+	<head>
+		<meta charset="utf-8">
+		<title>Angular Controller Ex</title>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+		
+
+		<script>
+
+		//repeating things using ng-repeat directive
+		
+		var fruitName=angular.module('fruitName',[]);
+		fruitName.controller('NameCtrl',function($scope){
+			$scope.names=['apple','orange','banana'];
+		});
+		
+		</script>
+	</head>
+	<body ng-controller="NameCtrl">
+		<ul>
+			<li ng-repeat="name in names">{{name}}</li>
+		</ul>
+	</body>
+</html>
