@@ -10,12 +10,22 @@
 			//with json objects
 			
 		var countryApp=angular.module('countryApp',[]);
-
 		countryApp.controller('countryAppCtrl',function($scope,$http){
-			$scope.countries=[];
+			
 			$http.get('countries.json').success(function(data){
 				$scope.countries=data;
+				console.log('$scope.countries= '+$scope.countries);
+
 			});
+
+			//fall back candition, if data is not present or not able to fetch
+			//
+			if($scope.countries==null || $scope.countries== undefined){
+					$scope.countries=[ { 'name': 'China', 'code' :'CH'},
+							{ 'name': 'India', 'code' : 'IND'},
+							{ 'name': 'United State of America', 'code' : 'USA'}];
+				}
+
 			//function for add county to the list
 			$scope.addCountry=function(){
 								var newData={'name': $scope.newCountry,'code' : $scope.newCode};
@@ -44,7 +54,7 @@
 				<th>Action</th>
 			</tr>
 			<tbody ng-repeat="country in countries">
-				<td >{{country.name}}</td>
+				<td id='{{country.name}}'>{{country.name}}</td>
 				<td>{{country.code}}</td>
 				<td><a href="" ng-click="removeCountry(country)">remove</a></td>
 			</tbody>

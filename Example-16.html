@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+	<style type="text/css">
+	table, table tr, table td, table tr th{
+		border: 1px solid #000;
+	}
+	</style>
+	<script >
+			//With ng-src directive to load image. 
+			//and number and currency code filter for population and GDP respectively.
+			
+		var countryApp=angular.module('countryApp',[]);
+		countryApp.controller('countryAppCtrl',function($scope,$http){
+		if($scope.countries==null || $scope.countries== undefined){
+					$scope.countries=[
+										{
+										"name": "China",
+										"population": 1359821000,
+										"flagURL": "http://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg",
+										"capital" : "Beijing",
+										"gdp":'16162'
+										},
+										{
+										"name": "India",
+										"population": 1205625000,
+										"flagURL": "http://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg",
+										"capital": "New Delhi",
+										"gdp":'6776'
+										},
+										{
+										"name": "United States of America",
+										"population": 312247000,
+										"flagURL": "http://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
+										"capital": "Washington, D.C",
+										"gdp":'16768'
+										}
+									]
+	}
+		});
+	</script>
+	<head>
+		<title>Country list With flag</title>
+	</head>
+	<body ng-controller="countryAppCtrl">
+		
+		<table class="countryTbl">
+			<tr>
+				<th><a href="" ng-click="sortField='name' ">Country</a></th>
+				<th><a href="" ng-click="sortField='population'">Population</a></th>
+				<th>Flag</th>
+				<th><a href=""ng-click="sortField='capital'">Capital</a></th>
+				<th><a href="http://en.wikipedia.org/wiki/List_of_countries_by_GDP_(PPP)">GDP(PPP)</a></th>
+			</tr>
+			<!-- Insertign images with ng-src attribute.-->
+			<tbody ng-repeat="country in countries | orderBy: sortField">
+				<td id='{{country.name}}'>{{country.name}}</td>
+				<td>{{country.population | number}}</td>
+				<td><img ng-src="{{country.flagURL}}" width="100"> </img></td>
+				<td>{{country.capital}}</td>
+				<td>{{country.gdp | currency}}</td>
+			</tbody>
+		</table>
+		<br>
+	</body>
+</html>
